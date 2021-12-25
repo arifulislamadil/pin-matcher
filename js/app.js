@@ -13,8 +13,6 @@ function getPin() {
 function generatePin() {
     const pin = getPin();
     document.getElementById("display-pin").value = pin;
-
-
 }
 
 //
@@ -22,10 +20,35 @@ function generatePin() {
 
 document.getElementById("key-pad").addEventListener("click", function (event) {
     const number = event.target.innerText;
+    const calcInput = document.getElementById("typed-numbers");
+    if (isNaN(number)) {
+        if (number == "C") {
+            calcInput.value = "";
+        }
+    } else {
+        const calcInput = document.getElementById("typed-numbers");
+        const previousNumber = calcInput.value;
+        const newNumber = previousNumber + number;
+        calcInput.value = newNumber;
+    }
+});
 
-    const calc = document.getElementById("typed-numbers");
-    const previousCalc = calc.value;
-    const newCalc = previousCalc + number;
-    calc.value = newCalc;
-})
+//Verify Pin
 
+function verifyPin() {
+    const pin = document.getElementById("display-pin").value;
+    const typeNumbers = document.getElementById("typed-numbers").value;
+    const successMessage = document.getElementById("notify-success");
+    const failError = document.getElementById("notify-fail");
+    if (pin == typeNumbers) {
+        successMessage.style.display = "block";
+        failError.style.display = "none";
+
+
+
+    } else {
+        failError.style.display = "block";
+        successMessage.style.display = "none"
+    }
+
+}
